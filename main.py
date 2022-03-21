@@ -22,7 +22,7 @@ options.add_argument('window-size=1400,600')
 options.add_argument(f'user-agent={ua.random}')
 options.binary_location = env.str('GOOGLE_CHROME_SHIM')
 # wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-browser = webdriver.Chrome(executable_path="chromedriver", chrome_options=chrome_options)
+wd = webdriver.Chrome(executable_path="chromedriver", chrome_options=options)
 
 
 def parse_gend():
