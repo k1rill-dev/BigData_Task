@@ -7,16 +7,22 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 from fake_useragent import UserAgent
+from environs import Env
 
 
 ua = UserAgent()
+env = Env()
+env.read_env()
+
+
 options = webdriver.ChromeOptions()
 options.add_argument('text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9')
 options.add_argument('--no-sandbox')
 options.add_argument('window-size=1400,600')
 options.add_argument(f'user-agent={ua.random}')
-wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-
+options.binary_location = env.str('GOOGLE_CHROME_SHIM')
+# wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+browser = webdriver.Chrome(executable_path="chromedriver", chrome_options=chrome_options)
 
 
 def parse_gend():
