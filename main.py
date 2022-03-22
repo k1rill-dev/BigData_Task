@@ -16,10 +16,10 @@ ua = UserAgent()
 options = webdriver.ChromeOptions()
 options.add_argument('text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9')
 options.add_argument('--no-sandbox')
-# options.add_argument('window-size=1400,600')
+options.add_argument('window-size=1400,600')
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument(f'user-agent={ua.random}')
-# options.binary_location = env.str('GOOGLE_CHROME_SHIM')
+options.binary_location = env.str('GOOGLE_CHROME_SHIM')
 # wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 wd = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=options)
 
@@ -83,10 +83,11 @@ def parse_kinopoisk(film):
 
 
 def main():
-    # film = 'harry potter'
-    film = input()
-    # parse_imdb(film)
-    print(parse_kinopoisk(film))
+    film = 'harry potter'
+    # film = input()
+    print(parse_imdb(film))
+    # print(parse_kinopoisk(film))
+
 if __name__ == "__main__":
     main()
 
