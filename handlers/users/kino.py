@@ -14,14 +14,14 @@ async def check(message: types.Message):
 @dp.message_handler(state=StateBot.Kino_ans)
 async def check_wp(message: types.Message, state: FSMContext):
     try:
-        data = parse_imdb(message.text)
+        data = parse_imdb(message.text.lower())
         await message.answer(f'Название - {data[0]}' + \
                              f'\nРейтинг IMDb - {data[1]}')
     except Exception:
         await message.answer('Ошибка поиска')
 
     try:
-        data_kp = parse_kinopoisk(message.text)
+        data_kp = parse_kinopoisk(message.text.lower())
         await message.answer(f'Название - {data_kp[0]}'+\
                              f'\nРейтинг Кинопоиск - {data_kp[1]}')
     except Exception:
