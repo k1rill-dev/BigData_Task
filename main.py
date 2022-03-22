@@ -19,9 +19,9 @@ options.add_argument('--no-sandbox')
 options.add_argument('window-size=1400,600')
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument(f'user-agent={ua.random}')
-options.binary_location = env.str('GOOGLE_CHROME_SHIM')
-# wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-wd = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=options)
+# options.binary_location = env.str('GOOGLE_CHROME_SHIM')
+wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+# wd = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=options)
 
 
 def parse_gend():
@@ -69,24 +69,25 @@ def parse_imdb(film):
   return name, rait
 
 def parse_kinopoisk(film):
-  time.sleep(3)
-  wd.get('https://www.kinopoisk.ru')
-  inp_form = wd.find_element(By.XPATH, '//*[@id="__next"]/div[2]/div[1]/header/div/div[2]/div[2]/div/form/div/input')
-  inp_form.send_keys(film)
-  time.sleep(3)
-  btn = wd.find_element(By.XPATH, '//*[@id="__next"]/div[2]/div[1]/header/div/div[2]/div[2]/div/form/div/div/button')
-  btn.click()
-  name = wd.find_element(By.XPATH, '/html/body/main/div[4]/div[1]/table/tbody/tr/td[1]/div/div[2]/div/div[2]/p/a').text
-  rait = wd.find_element(By.XPATH, '/html/body/main/div[4]/div[1]/table/tbody/tr/td[1]/div/div[2]/div/div[1]/div').text
-  # print(name.text, rait.text)
-  return name, rait
-
+    # никто не верил, что получится запарсить кинопоиск без selenium
+    # меня недооценили)
+    film = film.split()
+    headers = {
+      'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 OPR/83.0.4254.70'
+    }
+    req = requests.get(f'https://www.kinopoisk.ru/index.php?kp_query={"+".join(film)}', headers=headers)
+    response = req.text
+    soup = BeautifulSoup(response, 'lxml')
+    name = soup.find('div', class_='element most_wanted').find('div', class_='info').find('p', class_='name').text
+    reit = soup.find('div', class_='element most_wanted').find('div', class_='right').find('div',class_='rating ratingGreenBG').text
+    return name, reit
 
 def main():
-    film = 'harry potter'
-    # film = input()
-    print(parse_imdb(film))
-    # print(parse_kinopoisk(film))
+    # film = 'harry potter'
+    film = input()
+    # print(parse_imdb(film))
+    print(parse_kinopoisk(film))
 
 if __name__ == "__main__":
     main()
