@@ -19,9 +19,9 @@ options.add_argument('--no-sandbox')
 options.add_argument('window-size=1400,600')
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument(f'user-agent={ua.random}')
-# options.binary_location = env.str('GOOGLE_CHROME_SHIM')
-wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-# wd = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=options)
+options.binary_location = env.str('GOOGLE_CHROME_SHIM')
+# wd = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+wd = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=options)
 
 
 def parse_gend():
