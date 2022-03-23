@@ -8,6 +8,9 @@ async def set_default_commands(dp):
             types.BotCommand("help", "Вывести справку"),
             types.BotCommand("check", "Проверка цены(обычный сайт)"),
             types.BotCommand("check_wp", "Проверка цены(WordPress сайт)"),
+            types.BotCommand("check_article", "Проверка товара с другого сайта"),
+            types.BotCommand("github", "ссылка на github - репозиторий сего бота"),
+
             types.BotCommand("kino", "Рейтинг кино"),
         ]
     )
