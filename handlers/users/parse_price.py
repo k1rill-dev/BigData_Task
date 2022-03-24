@@ -55,7 +55,7 @@ async def check_article(message: types.Message):
       await bot.send_photo(message.from_user.id, "https://s1.livelib.ru/boocover/1003156338/200/8be5/boocover.jpg")
       data = price_checker()
       await message.answer(f"Название книги: {data[0]}"+\
-                           f"\nЦена: {data[1]}")
+                           f"\n{data[1]}")
     except Exception as ex:
       await message.answer(f"Ошибка - {ex}")
 

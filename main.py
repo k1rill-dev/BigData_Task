@@ -109,25 +109,23 @@ def parse_kinopoisk(film):
 
 
 def price_checker():
-    url = 'https://www.ozon.ru/product/devushka-s-tatuirovkoy-drakona-larsson-stig-250059673/?asb=Nagkc2QZl8PFX9CmVJ%252F0xSOdZQuGYKC%252FHEtTtJqD2xI%253D&asb2=rv1KP_Bp3rVq02k96yKDd82QXChnl7SqU7_w8T-w05l_pTiVWlQoeIv_eZLvmfsN&keywords=девушка+с+татуировкой+дракона&sh=sK0lCmxnfg'
+    url = 'https://www.labirint.ru/books/705237/'
     headers = {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36 OPR/83.0.4254.70'
     }
     req = requests.get(url, headers=headers)
     response = req.text
-    # print(response)
     soup = BeautifulSoup(response, 'lxml')
-    name = soup.find('div', class_='k0n k6n k4n').find('h1', class_='k2u').text
-    price = soup.find('div', class_='tk1').find('span', class_='kt0 k0t').text.replace('\u2009', '').replace('\xa0', '')
+    name = soup.find(attrs={"id": "product"}).find('div', class_='prodtitle').find('h1').text
+    price = soup.find('div', class_='buying-pricenew').text.strip().replace('\n', ': ', 1).replace('\n', '')
     return name, price
 
-
 def main():
-    film = input()
-    print(parse_imdb(film))
-    # # print(parse_kinopoisk(film))
-    # print(price_checker())
+    # film = input()
+    # print(parse_imdb(film))
+    # print(parse_kinopoisk(film))
+    print(price_checker())
 
 
 if __name__ == "__main__":

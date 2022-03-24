@@ -17,14 +17,14 @@ async def check_wp(message: types.Message, state: FSMContext):
         data = parse_imdb(message.text.lower())
         await message.answer(f'Название - {data[0]}' + \
                              f'\nРейтинг IMDb - {data[1]}')
-    except Exception:
+    except Exception as ex:
         await message.answer('Ошибка поиска')
 
     try:
         data_kp = parse_kinopoisk(message.text.lower())
         await message.answer(f'Название - {data_kp[0]}'+\
                              f'\nРейтинг Кинопоиск - {data_kp[1]}')
-    except Exception:
+    except Exception as ex:
         await message.answer('Ошибка поиска')
 
     await state.finish()
