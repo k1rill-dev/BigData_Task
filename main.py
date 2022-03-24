@@ -51,9 +51,7 @@ def new_parse():
         response = r.text
         soup = BeautifulSoup(response, 'lxml')
         name = soup.find('div', class_='summary entry-summary').find('h1').text
-        price = soup.find('div', class_='summary entry-summary').find('span',
-                                                                      class_='woocommerce-Price-amount amount').find(
-            'bdi').text
+        price = soup.find('div', class_='summary entry-summary').find('span', class_='woocommerce-Price-amount amount').find('bdi').text
         return time, name, int(price.split('.')[0])
     except:
         print('ливай дядя')

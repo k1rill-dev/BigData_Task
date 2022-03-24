@@ -9,7 +9,7 @@ import pandas as pd
 async def check(message: types.Message):
   cur_price = parse_gend()[1]
   sec = 0
-  await message.answer(f"Время: {parse_gend()[0]} \n {parse_gend()[2]} \n Актуальная цена: {parse_gend()[1]}₽ \n Старая цена:{cur_price}₽ \n Разница: {cur_price - parse_gend()[1]}₽")
+  await message.answer(f"Время: {parse_gend()[0]} \n {parse_gend()[2]} \n Актуальная цена: {parse_gend()[1]}₽")
   while True:
     if cur_price != parse_gend()[1]:
       diff = cur_price - parse_gend()[1]
@@ -31,7 +31,7 @@ async def check(message: types.Message):
 @dp.message_handler(commands="check_wp")
 async def check_wp(message: types.Message):
   cur_price_wp = new_parse()[2]
-  await message.answer(f"Время: {new_parse()[0]} \n {new_parse()[2]} \n Актуальная цена: {new_parse()[1]}₽ \n Старая цена:{cur_price_wp}₽ \n Разница: {cur_price_wp - new_parse()[1]}₽")
+  await message.answer(f"Время: {new_parse()[0]} \n {new_parse()[1]} \n Актуальная цена: {new_parse()[2]}₽")
   sec = 0
   while True:
     if cur_price_wp != new_parse()[2]:
