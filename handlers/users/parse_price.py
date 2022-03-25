@@ -2,7 +2,6 @@ from aiogram import types
 from main import new_parse, parse_gend, price_checker
 from loader import dp, bot
 import time
-import pandas as pd
 
 
 @dp.message_handler(commands='check')

@@ -8,7 +8,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 from fake_useragent import UserAgent
 from data.config import *
-import pandas as pd
 
 ua = UserAgent()
 
